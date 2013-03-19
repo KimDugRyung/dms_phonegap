@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+        
+        
+        <script type="text/javascript" charset="utf-8" src="js/external_lib/cordova-2.3.0.js"></script>
+        
+        <script type="text/javascript" charset="utf-8" src="js/external_lib/jquery-1.8.2.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/external_lib/jquery.mobile-1.2.0.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/external_lib/jquery.jqplot.js" ></script>
+                
+        <script type="text/javascript" charset="utf-8" src="js/external_lib/coumtdown.js" ></script>
+        
+        
+        <script type="text/javascript" src="js/external_lib/jqplot.dateAxisRenderer.js"></script>
+        <script type="text/javascript" src="js/external_lib/jqplot.categoryAxisRenderer.js"></script>
+        <script type="text/javascript" src="js/external_lib/jqplot.barRenderer.js"></script>
+        
+        <link media="all" type="text/css" rel="stylesheet" href="css/all.css" />
+        <link media="all" type="text/css" rel="stylesheet" href="css/jquery.jqplot.css" />
+        <link media="all" type="text/css" rel="stylesheet" href="css/jcountdown.css" />
+
+        <script type="text/javascript" src="js/localizationMessages.js"></script>
+        <script type="text/javascript" src="js/tools/class.js"></script>
+        <script type="text/javascript" src="js/tools/common.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+
+        <script type="text/javascript" id="ready_script">
+        
+        function deviceReadyFunction() {
+             var app = new DMSApp(localizationMessages);
+         }
+         
+        function demoPullCallback(app, data_) { //data contains action and data fields
+				var action  = data_.action; // welcome - first screen  - logo
+			             				   // event - countdown
+			             				   // result  - last screen - chart (json)
+			             				   // forecast - second screen - chart (json)
+			    
+			    
+			    var data = data_.data;
+		    
+			    switch (action) {
+				   case "welcome":
+				      app.showWelcomePage();
+				      break;
+				   case "event":
+				      if(!app.eventPageNow) { app.showEventPage(data); }
+					  break;
+				   case "forecast":
+				      app.showForecastPage(data);
+				      break;
+				   case "result":
+				   	  app.showResultPage(data);
+				      break;		
+				   default:
+				      app.showWelcomePage();
+				      break;
+				}
+		}
+        </script>
+        
+        <title>First Screen: TO DO create title</title>
+    </head>
+    <!--document.addEventListener("deviceready", deviceReadyFunction, false);-->
+    <body onload='document.addEventListener("deviceready", deviceReadyFunction, false);'>
+        <!--DON"T CHANGE ELEMENTS ID (LOCALIZATION USES IT)-->
+        <div id="main-shift">
+            <div class="main-wrapper-1">
+                    <div class="header">
+                        <h2 id="s1_app_title">s1_app_title</h2>
+                    </div>
+                <div id="step1"  style="display:none">
+                    <div id="main">
+                        <div class="item-bg">
+                            <div class="chart-holder" id="dimensions_chart_holder">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer">
+                        <div class="box">
+                            <h2 id="s1_nbox_title">s1_nbox_title</h2>
+                            <div id="s1_nbox_text">s1_nbox_text</div>
+                            <div class="button_holder" style="display: none;">
+                                <a class="button" href="javascript: $.noop()" style="display: none;">
+                                    <span id="s1_nbox_yes">s1_nbox_yes</span>
+                                </a>
+                                <a class="button" href="javascript: $.noop()" style="float: right; display: none;">
+                                    <span id="s1_nbox_no">s1_nbox_no</span>
+                                </a>
+                                <a class="button" href="javascript: $.noop()" style="float: right;display: none;">
+                                    <span id="s1_nbox_close">s1_nbox_close</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="step2" style="display:none">
+                    <div id="main">
+                        <div class="item-bg">
+                            <div class="counter countdown"></div>
+                        </div>
+                    </div>
+                    <div class="footer">
+                        <div class="box">
+                            <h2 id="s2_nbox_title">s2_nbox_title</h2>
+                            <div id="s2_nbox_text">s2_nbox_text</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
